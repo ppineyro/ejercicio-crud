@@ -8,6 +8,7 @@ import { UserCard } from '../components/UserCard'
 import { UserFormDialog } from '../components/UserFormDialog'
 import { useUsers } from '../hooks/useUsers'
 import type { NewUser, User } from '../services/userService'
+import Box from '@mui/material/Box'
 
 export function UsersPage() {
   const { users, loading, error, saving, addUser, editUser, removeUser } =
@@ -59,7 +60,13 @@ export function UsersPage() {
         </Stack>
 
         <AsyncState loading={loading} error={error} empty={!users.length}>
-          <Stack spacing={2}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+              gap: 2,
+            }}
+          >
             {users.map((user) => (
               <UserCard
                 key={user.id}
@@ -68,7 +75,7 @@ export function UsersPage() {
                 onDelete={handleDelete}
               />
             ))}
-          </Stack>
+          </Box>
         </AsyncState>
       </Stack>
 

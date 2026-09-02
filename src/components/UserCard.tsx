@@ -1,6 +1,7 @@
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import Avatar from '@mui/material/Avatar'
+import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import IconButton from '@mui/material/IconButton'
@@ -20,28 +21,31 @@ type UserCardProps = {
 
 export function UserCard({ user, onEdit, onDelete }: UserCardProps) {
   return (
-    <Card>
+    <Card sx={{ height: '100%' }}>
       <CardContent>
-        <Stack direction="row" spacing={2} alignItems="center">
-          <Avatar sx={{ bgcolor: 'primary.main', width: 48, height: 48 }}>
+        <Box
+          sx={{
+            display: 'grid',
+            justifyItems: 'center',
+            textAlign: 'center',
+            gap: 1,
+          }}
+        >
+          <Avatar sx={{ bgcolor: 'primary.main', width: 56, height: 56 }}>
             {initials(user.name)}
           </Avatar>
 
-          <Stack spacing={0.25} sx={{ flexGrow: 1 }}>
-            <Typography variant="subtitle1">{user.name}</Typography>
-            <Typography variant="body2" color="text.secondary">
-              @{user.username}
-            </Typography>
-            <Typography variant="body2">{user.email}</Typography>
-          </Stack>
+          <Typography variant="h6">{user.name}</Typography>
 
-          <Stack direction="row">
-            <IconButton
-              aria-label={`Editar ${user.name}`}
-              onClick={() => onEdit(user)}
-            >
-              <EditIcon />
-            </IconButton>
+          <Typography variant="body2" color="text.secondary">
+            @{user.username}
+          </Typography>
+
+          <Typography variant="body2" sx={{ color: 'blue', fontWeight: 500 }}>
+            {user.email}
+          </Typography>
+
+          <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
             <IconButton
               aria-label={`Eliminar ${user.name}`}
               color="error"
@@ -49,8 +53,15 @@ export function UserCard({ user, onEdit, onDelete }: UserCardProps) {
             >
               <DeleteIcon />
             </IconButton>
+            <IconButton
+              aria-label={`Editar ${user.name}`}
+              color="primary"
+              onClick={() => onEdit(user)}
+            >
+              <EditIcon />
+            </IconButton>
           </Stack>
-        </Stack>
+        </Box>
       </CardContent>
     </Card>
   )
